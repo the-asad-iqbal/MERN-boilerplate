@@ -45,7 +45,7 @@ const isLoggedIn = async (req, res, next) => {
       return errorResponse(res, 401, "Unauthorized");
     }
 
-    req.user = { ...user.toObject(), password: undefined };
+    req.user = { name: user.name, email: user.email };
     next();
   } catch (error) {
     errorResponse(res, 401, "Unauthorized");

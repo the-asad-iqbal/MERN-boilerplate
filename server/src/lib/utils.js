@@ -56,7 +56,6 @@ const setRefreshCookie = (res, refreshToken, options) => {
     ...options,
     secure: true,
     httpOnly: true,
-    sameSite: "none",
     expires: new Date(Date.now() + expiryTime),
   });
 };
@@ -74,7 +73,6 @@ const setAuthCookie = (res, authToken, options) => {
     ...options,
     secure: true,
     httpOnly: true,
-    sameSite: "none",
     expires: new Date(Date.now() + expiryTime),
   });
 };

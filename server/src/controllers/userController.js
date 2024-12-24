@@ -18,7 +18,7 @@ const getUserById = async (req, res) => {
 
     const user = await User.findById(id);
     if (!user) {
-      return errorResponse(res, 404, "User not found");
+      return errorResponse(res, 404, "Cannot find user with this id.");
     }
 
     successResponse(res, 200, user);
@@ -36,8 +36,9 @@ const login = async (req, res) => {
     }
 
     const user = await User.findOne({ email });
+
     if (!user) {
-      return errorResponse(res, 404, "User not found");
+      return errorResponse(res, 404, "Invalid credentials");
     }
 
     const isMatch = await user.comparePassword(password);
@@ -51,7 +52,10 @@ const login = async (req, res) => {
     setRefreshCookie(res, refreshToken);
     setAuthCookie(res, authToken);
 
-    successResponse(res, 200, "Login successful");
+    successResponse(res, 200, "Login successful", {
+      name: user.name,
+      email: user.email,
+    });
   } catch (error) {
     errorResponse(res, 500, error.message);
   }
@@ -78,7 +82,7 @@ const register = async (req, res) => {
     }
 
     const user = await User.create({ name, email, password });
-    if (!user) return errorResponse(res, 400, "User not created");
+    if (!user) return errorResponse(res, 400, "An error occurred");
 
     const authToken = user.generateAuthToken();
     const refreshToken = user.generateRefreshToken();

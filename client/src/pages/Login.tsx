@@ -33,8 +33,8 @@ const Login = () => {
     const form = useForm<LoginFormValues>({
         resolver: zodResolver(loginSchema),
         defaultValues: {
-            email: '',
-            password: '',
+            email: 'a@a.com',
+            password: '12345678',
         },
     })
 
@@ -96,7 +96,7 @@ const Login = () => {
                                     <FormItem>
                                         <FormLabel>Email</FormLabel>
                                         <FormControl>
-                                            <Input placeholder="Enter your email" {...field} />
+                                            <Input placeholder="Enter your email" {...field} autoComplete='email' />
                                         </FormControl>
                                         <FormMessage />
                                     </FormItem>
@@ -112,6 +112,7 @@ const Login = () => {
                                             <Input
                                                 type="password"
                                                 placeholder="Enter your password"
+                                                autoComplete='current-password'
                                                 {...field}
                                             />
                                         </FormControl>
