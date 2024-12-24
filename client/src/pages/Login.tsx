@@ -122,7 +122,7 @@ const Login = () => {
                             />
                             <Button
                                 type="submit"
-                                className="w-full"
+                                className="w-full disabled:cursor-not-allowed disabled:opacity-50"
                                 disabled={isLoading}
                             >
                                 {isLoading ? 'Logging in...' : 'Login'}

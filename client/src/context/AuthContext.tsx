@@ -1,4 +1,4 @@
-import { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import { createContext, useContext, useState, useEffect, ReactNode, useCallback } from 'react';
 import axios from '@/lib/axios';
 
 interface User {
@@ -42,17 +42,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         checkAuth();
     }, []);
 
-    const login = (userData: User) => {
+    const login = useCallback((userData: User) => {
         console.log(userData);
-
         setUser(userData);
         setIsAuthenticated(true);
-    };
+    }, []);
 
-    const logout = () => {
+    const logout = useCallback(() => {
         setUser(null);
         setIsAuthenticated(false);
-    };
+    }, []);
 
     if (isLoading) {
         return null;
