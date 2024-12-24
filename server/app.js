@@ -22,7 +22,7 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 
-app.use("/api/v1", userRoute);
+app.use("/api/v1/user", userRoute);
 
 app.listen(process.env.PORT || 3000, () => {
   console.log(`Server🏃on [${process.env.PORT || 3000}]`);

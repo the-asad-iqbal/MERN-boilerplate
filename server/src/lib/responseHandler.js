@@ -28,37 +28,12 @@ const successResponse = (
 const errorResponse = (
   res,
   statusCode = 500,
-  message = "Internal Server Error",
-  error = null
+  message = "Internal Server Error"
 ) => {
   return res.status(statusCode).json({
     success: false,
     message,
-    error,
   });
 };
 
-/**
- * Validation error response
- * @param {Response} res - Express response object
- * @param {Object} error - Validation error
- */
-const validationErrorResponse = (res, error) => {
-  return errorResponse(res, 400, "Validation Error", error);
-};
-
-/**
- * Not found response
- * @param {Response} res - Express response object
- * @param {string} message - Not found message
- */
-const notFoundResponse = (res, message = "Resource not found") => {
-  return errorResponse(res, 404, message);
-};
-
-export {
-  successResponse,
-  errorResponse,
-  validationErrorResponse,
-  notFoundResponse,
-};
+export { successResponse, errorResponse };

@@ -44,7 +44,7 @@ const login = async (req, res) => {
     if (!isMatch) {
       return errorResponse(res, 401, "Invalid credentials");
     }
-    
+
     const authToken = user.generateAuthToken();
     const refreshToken = user.generateRefreshToken();
 
@@ -102,4 +102,12 @@ const logout = async (req, res) => {
   }
 };
 
-export { getAllUsers, getUserById, login, register, logout };
+const me = async (req, res) => {
+  try {
+    successResponse(res, 200, "You are authenticated!", req.user);
+  } catch (error) {
+    errorResponse(res, 500, error.message);
+  }
+};
+
+export { getAllUsers, getUserById, login, register, logout, me };
