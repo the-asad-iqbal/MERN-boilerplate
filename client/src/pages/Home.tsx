@@ -45,7 +45,7 @@ const Home = () => {
                 </div>
 
                 <div className="flex justify-center mt-12 gap-2">
-                    <a href="https://github.com/TheAsadIqbal/MERN-Boilerplate">
+                    <a href="https://github.com/the-asad-iqbal/MERN-boilerplate">
                         <Button>
                             Github Repo
                         </Button>
