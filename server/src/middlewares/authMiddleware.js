@@ -39,12 +39,6 @@ const isLoggedIn = async (req, res, next) => {
       setAuthCookie(res, newAuthToken);
     }
 
-    const decodedToken = verifyAuthToken(authToken);
-
-    if (!decodedToken) {
-      return errorResponse(res, 401, "Unauthorized");
-    }
-
     req.user = { name: user.name, email: user.email };
     next();
   } catch (error) {

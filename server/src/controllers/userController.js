@@ -90,7 +90,10 @@ const register = async (req, res) => {
     setRefreshCookie(res, refreshToken);
     setAuthCookie(res, authToken);
 
-    successResponse(res, 201, "Successfully registered!");
+    successResponse(res, 201, "Successfully registered!", {
+      name: user.name,
+      email: user.email,
+    });
   } catch (error) {
     errorResponse(res, 500, error.message);
   }
