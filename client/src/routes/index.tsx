@@ -4,6 +4,7 @@ import { ProtectedRoute } from '@/components/ProtectedRoute';
 import Login from '@/pages/Login';
 import Dashboard from '@/pages/Home'
 import Register from '@/pages/Register';
+import NotFound from '@/pages/NotFound';
 
 export const router = createBrowserRouter([
     {
@@ -21,5 +22,9 @@ export const router = createBrowserRouter([
                 <Dashboard />
             </ProtectedRoute>
         ),
-    }
+    },
+    {
+        path: "*",
+        element: <NotFound />,
+    },
 ]);
