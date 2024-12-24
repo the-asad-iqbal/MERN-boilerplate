@@ -2,8 +2,12 @@ import express from "express";
 import cookieParser from "cookie-parser";
 import cors from "cors";
 import { config } from "dotenv";
+import { validateEnv } from "./src/lib/utils.js";
+import dbConfig from "./src/config/dbConfig.js";
 
 config();
+validateEnv();
+dbConfig();
 
 const app = express();
 
@@ -17,8 +21,6 @@ app.use(express.json());
 app.use(cookieParser());
 app.use(express.urlencoded({ extended: true }));
 
-
-
 app.listen(process.env.PORT || 3000, () => {
-  console.log(`Server running on port ${process.env.PORT}`);
+  console.log(`Server🏃on [${process.env.PORT || 3000}]`);
 });
