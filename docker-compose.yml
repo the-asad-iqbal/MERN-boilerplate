@@ -1,0 +1,32 @@
+name: mern-boilerplate
+
+services:
+  client:
+    build:
+      context: ./client
+      target: production
+    ports:
+      - "3001:80"
+    depends_on:
+      - server
+    restart: unless-stopped
+
+  server:
+    build:
+      context: ./server
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - PORT=3000
+      - JWT_AUTH_SECRET=${JWT_AUTH_SECRET:-mysecretkey}
+      - JWT_AUTH_EXPIRATION=${JWT_AUTH_EXPIRATION:-1d}
+      - JWT_REFRESH_SECRET=${JWT_REFRESH_SECRET:-myrefreshsecret}
+      - JWT_REFRESH_EXPIRATION=${JWT_REFRESH_EXPIRATION:-7d}
+      - MONGO_URI=${MONGO_URI:-mongodb+srv://asadraoof023:Mong0Dbee123@cluster0.tlnqwwj.mongodb.net/mern-boilerplate?retryWrites=true&w=majority&appName=Cluster0}
+      - VITE_BASE_URL=${VITE_BASE_URL:-http://localhost:3001/api/v1}
+    restart: unless-stopped
+
+networks:
+  default:
+    driver: bridge

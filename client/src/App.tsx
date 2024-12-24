@@ -1,10 +1,28 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import reactLogo from './assets/react.svg'
 import viteLogo from '/vite.svg'
 import './App.css'
+import instance from './lib/axios'
 
 function App() {
   const [count, setCount] = useState(0)
+
+  const handleFetch = async () => {
+    instance.get('/user').then((res) => {
+      console.log(res);
+    });
+  };
+
+  const handleFetchInside = async () => {
+    instance.get('/user/me').then((res) => {
+      console.log(res);
+    });
+  };
+
+  useEffect(() => {
+    handleFetch();
+    handleFetchInside
+  }, []);
 
   return (
     <>
