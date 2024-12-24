@@ -23,28 +23,28 @@ const successResponse = (
  * @param {Response} res - Express response object
  * @param {number} statusCode - HTTP status code
  * @param {string} message - Error message
- * @param {*} errors - Detailed errors
+ * @param {*} error - Detailed error
  */
 const errorResponse = (
   res,
   statusCode = 500,
   message = "Internal Server Error",
-  errors = null
+  error = null
 ) => {
   return res.status(statusCode).json({
     success: false,
     message,
-    errors,
+    error,
   });
 };
 
 /**
  * Validation error response
  * @param {Response} res - Express response object
- * @param {Object} errors - Validation errors
+ * @param {Object} error - Validation error
  */
-const validationErrorResponse = (res, errors) => {
-  return errorResponse(res, 400, "Validation Error", errors);
+const validationErrorResponse = (res, error) => {
+  return errorResponse(res, 400, "Validation Error", error);
 };
 
 /**
@@ -56,19 +56,9 @@ const notFoundResponse = (res, message = "Resource not found") => {
   return errorResponse(res, 404, message);
 };
 
-/**
- * Unauthorized response
- * @param {Response} res - Express response object
- * @param {string} message - Unauthorized message
- */
-const unauthorizedResponse = (res, message = "Unauthorized access") => {
-  return errorResponse(res, 401, message);
-};
-
 export {
   successResponse,
   errorResponse,
   validationErrorResponse,
   notFoundResponse,
-  unauthorizedResponse,
 };

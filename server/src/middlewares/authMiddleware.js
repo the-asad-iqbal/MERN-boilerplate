@@ -1,46 +1,54 @@
 import User from "../models/userModel.js";
-import { verifyRefreshToken, verifyAuthToken } from "../lib/utils.js";
+import {
+  verifyRefreshToken,
+  verifyAuthToken,
+  setAuthCookie,
+} from "../lib/utils.js";
+import { errorResponse } from "../lib/responseHandler.js";
 
 const isLoggedIn = async (req, res, next) => {
   try {
     const { refreshToken } = req.cookies;
 
     if (!refreshToken) {
-      return res.status(401).json({ message: "Unauthorized" });
+      return errorResponse(res, 401, "Unauthorized");
     }
 
     const decoded = verifyRefreshToken(refreshToken);
 
     if (!decoded) {
-      return res.status(401).json({ message: "Unauthorized" });
+      return errorResponse(res, 401, "Unauthorized");
     }
 
     const { id } = decoded;
 
     if (!id) {
-      return res.status(401).json({ message: "Unauthorized" });
+      return errorResponse(res, 401, "Unauthorized");
     }
 
     const user = await User.findOne({ _id: id });
 
     if (!user) {
-      return res.status(401).json({ message: "Unauthorized" });
+      return errorResponse(res, 401, "Unauthorized");
     }
 
     const { authToken } = req.cookies;
 
     if (!authToken) {
       const newAuthToken = user.generateAuthToken();
-      res.cookie("authToken", newAuthToken, {
-        httpOnly: true,
-        secure: process.env.NODE_ENV === "production",
-      });
+      setAuthCookie(res, newAuthToken);
+    }
+
+    const decodedToken = verifyAuthToken(authToken);
+
+    if (!decodedToken) {
+      return errorResponse(res, 401, "Unauthorized");
     }
 
     req.user = user;
     next();
   } catch (error) {
-    res.status(401).json({ message: "Unauthorized" });
+    errorResponse(res, 401, "Unauthorized");
   }
 };
 
