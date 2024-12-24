@@ -9,6 +9,8 @@ services:
       - "3001:80"
     depends_on:
       - server
+    environment:
+      - VITE_BASE_URL=${VITE_BASE_URL:-http://localhost:3000/api/v1}
     restart: unless-stopped
 
   server:
@@ -24,7 +26,7 @@ services:
       - JWT_REFRESH_SECRET=${JWT_REFRESH_SECRET:-myrefreshsecret}
       - JWT_REFRESH_EXPIRATION=${JWT_REFRESH_EXPIRATION:-7d}
       - MONGO_URI=${MONGO_URI:-mongodb+srv://asadraoof023:Mong0Dbee123@cluster0.tlnqwwj.mongodb.net/mern-boilerplate?retryWrites=true&w=majority&appName=Cluster0}
-      - VITE_BASE_URL=${VITE_BASE_URL:-http://localhost:3001/api/v1}
+      - CLIENT_URL=${CLIENT_URL:-http://localhost:3001}
     restart: unless-stopped
 
 networks:
