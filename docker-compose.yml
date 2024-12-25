@@ -25,7 +25,7 @@ services:
       - JWT_AUTH_EXPIRATION=${JWT_AUTH_EXPIRATION:-1d}
       - JWT_REFRESH_SECRET=${JWT_REFRESH_SECRET:-myrefreshsecret}
       - JWT_REFRESH_EXPIRATION=${JWT_REFRESH_EXPIRATION:-7d}
-      - MONGO_URI=${MONGO_URI:-mongodb+srv://asadraoof023:Mong0Dbee123@cluster0.tlnqwwj.mongodb.net/mern-boilerplate?retryWrites=true&w=majority&appName=Cluster0}
+      - MONGO_URI=${MONGO_URI}
       - CLIENT_URL=${CLIENT_URL:-http://localhost:3001}
     restart: unless-stopped
 
