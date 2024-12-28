@@ -98,9 +98,18 @@ const validateEnv = () => {
 };
 
 const generateVerificationToken = () => {
-  const token = crypto.randomBytes(16).toString("hex");
+  const token = crypto.randomBytes(64).toString("hex");
   return token;
 };
+
+const validateUserInput = ({ name, email, password }) => {
+  if ((!name && name !== undefined) || !email || !password) {
+    throw new Error("Missing required fields");
+  }
+};
+
+const createActivationUrl = (token) =>
+  `${process.env.CLIENT_URL}/verify-email/${token}`;
 
 export {
   verifyRefreshToken,
@@ -109,5 +118,7 @@ export {
   setAuthCookie,
   validateEnv,
   generateVerificationToken,
-  parseTimeToMs
+  parseTimeToMs,
+  validateUserInput,
+  createActivationUrl,
 };
