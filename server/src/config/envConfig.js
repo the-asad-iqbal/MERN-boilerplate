@@ -6,4 +6,6 @@ export const requiredEnvVars = [
   "JWT_AUTH_EXPIRATION",
   "JWT_REFRESH_SECRET",
   "CLIENT_URL",
+  "SENDGRID_API_KEY",
+  "SENDGRID_EMAIL",
 ];

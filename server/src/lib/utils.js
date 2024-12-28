@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
 import { requiredEnvVars } from "../config/envConfig.js";
+import crypto from "crypto";
 
 /**
  * Converts time string to milliseconds
@@ -96,10 +97,17 @@ const validateEnv = () => {
   }
 };
 
+const generateVerificationToken = () => {
+  const token = crypto.randomBytes(16).toString("hex");
+  return token;
+};
+
 export {
   verifyRefreshToken,
   verifyAuthToken,
   setRefreshCookie,
   setAuthCookie,
   validateEnv,
+  generateVerificationToken,
+  parseTimeToMs
 };

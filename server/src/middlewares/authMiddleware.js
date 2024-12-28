@@ -39,7 +39,7 @@ const isLoggedIn = async (req, res, next) => {
       setAuthCookie(res, newAuthToken);
     }
 
-    req.user = { name: user.name, email: user.email };
+    req.user = { name: user.name, email: user.email, isVerified: user.isVerified };
     next();
   } catch (error) {
     errorResponse(res, 401, "Unauthorized");

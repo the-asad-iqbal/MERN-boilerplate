@@ -23,17 +23,24 @@ const successResponse = (
  * @param {Response} res - Express response object
  * @param {number} statusCode - HTTP status code
  * @param {string} message - Error message
- * @param {*} error - Detailed error
+ * @param {*} errors - Detailed error
  */
 const errorResponse = (
   res,
   statusCode = 500,
-  message = "Internal Server Error"
+  message = "Internal Server Error",
+  errors = null
 ) => {
-  return res.status(statusCode).json({
+  const response = {
     success: false,
     message,
-  });
+  };
+
+  if (errors) {
+    response.errors = errors;
+  }
+
+  return res.status(statusCode).json(response);
 };
 
 export { successResponse, errorResponse };
