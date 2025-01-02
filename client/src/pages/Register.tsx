@@ -51,7 +51,7 @@ const Register = () => {
         try {
             setIsLoading(true)
 
-            const response = await axios.post('/user/register', data)
+            const response = await axios.post('/auth/register', data)
 
             if (response.data.success === false) {
                 const { message } = response.data

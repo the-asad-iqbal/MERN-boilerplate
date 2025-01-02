@@ -11,6 +11,7 @@ interface AuthContextType {
     isLoading: boolean;
     login: (user: User) => void;
     logout: () => void;
+    refresh: () => Promise<void>;
     user: User | null;
 }
 
@@ -21,44 +22,43 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const [isLoading, setIsLoading] = useState(true);
     const [user, setUser] = useState<User | null>(null);
 
-    useEffect(() => {
-        const checkAuth = async () => {
-            try {
-                const response = await axios.get('/user/me');
+    const checkAuth = useCallback(async () => {
+        try {
+            const response = await axios.get('/user/me');
 
-                if (response.status === 200) {
-                    const { data } = response.data;
-                    setIsAuthenticated(true);
-                    setUser(data);
-                }
-            } catch (error) {
-                setIsAuthenticated(false);
-                setUser(null);
-            } finally {
-                setIsLoading(false);
+            if (response.status === 200) {
+                const { data } = response.data;
+                setIsAuthenticated(true);
+                setUser(data);
             }
-        };
-
-        checkAuth();
+        } catch (error) {
+            setIsAuthenticated(false);
+            setUser(null);
+        } finally {
+            setIsLoading(false);
+        }
     }, []);
 
+    useEffect(() => {
+        checkAuth();
+    }, [checkAuth]);
+
     const login = useCallback((userData: User) => {
-        console.log(userData);
         setUser(userData);
-        setIsAuthenticated(true);
     }, []);
 
     const logout = useCallback(() => {
         setUser(null);
-        setIsAuthenticated(false);
     }, []);
+
+    const refresh = useCallback(() => checkAuth(), [checkAuth]);
 
     if (isLoading) {
         return null;
     }
 
     return (
-        <AuthContext.Provider value={{ isAuthenticated, isLoading, login, logout, user }}>
+        <AuthContext.Provider value={{ isAuthenticated, isLoading, login, logout, refresh, user }}>
             {children}
         </AuthContext.Provider>
     );

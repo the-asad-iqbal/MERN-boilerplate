@@ -44,7 +44,7 @@ const Login = () => {
         try {
             setIsLoading(true)
 
-            const response = await axios.post('/user/login', data)
+            const response = await axios.post('/auth/login', data)
             console.log(await response.data);
 
 

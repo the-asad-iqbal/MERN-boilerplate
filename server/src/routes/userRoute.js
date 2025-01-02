@@ -4,8 +4,8 @@ import { isLoggedIn } from "../middlewares/authMiddleware.js";
 
 const router = Router();
 
-router.get("/users", isLoggedIn, getAllUsers);
-router.get("/users/:id", isLoggedIn, getUserById);
-router.get("/users/me", isLoggedIn, me);
+router.get("/", isLoggedIn, getAllUsers);
+router.get("/:id", isLoggedIn, getUserById);
+router.get("/me", isLoggedIn, me);
 
 export default router;
